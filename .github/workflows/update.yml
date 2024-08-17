@@ -2,26 +2,15 @@ name: Update Blocklist
 
 on:
   schedule:
-    - cron: '0 * * * *' # Menjalankan setiap jam
-  workflow_dispatch: # Memungkinkan pemicuan manual
+    - cron: '0 * * * *'
+  workflow_dispatch:
 
 jobs:
   update-blocklist:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Debug Secrets
-        run: |
-          echo "SOURCE_URL is set to: ${SOURCE_URL:0:10}... (truncated)"
-          echo "GIT_USERNAME is set to: ${GIT_USERNAME}"
-          echo "GIT_EMAIL is set to: ${GIT_EMAIL}"
-        env:
-          SOURCE_URL: ${{ secrets.SOURCE_URL }}
-          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
-          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+      - uses: actions/checkout@v4
 
       - name: Run update script
         run: |
