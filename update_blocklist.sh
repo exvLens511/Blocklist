@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Debugging untuk memastikan secrets terbaca
+echo "SOURCE_URL is set to: ${SOURCE_URL:0:10}... (truncated)"
+echo "GIT_USERNAME is set to: ${GIT_USERNAME}"
+echo "GIT_EMAIL is set to: ${GIT_EMAIL}"
+
+# Lanjutkan dengan sisa skrip...
+
+
 # Mengatur variabel
 TARGET_DIR=$(pwd)
 SOURCE_URL="${SOURCE_URL}"
