@@ -1,0 +1,24 @@
+name: Update Blocklist
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Menjalankan setiap jam
+  workflow_dispatch: # Memungkinkan pemicuan manual
+
+jobs:
+  update-blocklist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run update script
+        run: |
+          chmod +x update_blocklist.sh
+          ./update_blocklist.sh
+
+        env:
+          SOURCE_URL: ${{ secrets.SOURCE_URL }}
+          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
