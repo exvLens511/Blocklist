@@ -1,23 +1,27 @@
-name: Update Blocklist
+#!/bin/bash
 
-on:
-  schedule:
-    - cron: '0 * * * *'
-  workflow_dispatch:
+now=$(date +"%Y-%m-%d_%H-%M-%S")
 
-jobs:
-  update-blocklist:
-    runs-on: self-hosted
+# Mengunduh file domain dari URL sumber
+curl --insecure -m 300 -o "domains_isp" "$SOURCE_URL"
 
-    steps:
-      - uses: actions/checkout@v4
+# Memisahkan file domain menjadi beberapa bagian
+split -l 100000 domains_isp domain_part_
+mv domain_part_aa domains_isp_part1
+mv domain_part_ab domains_isp_part2
+mv domain_part_ac domains_isp_part3
 
-      - name: Run update script
-        run: |
-          chmod +x update_blocklist.sh
-          ./update_blocklist.sh
+# Git konfigurasi
+git config user.name "$GIT_USERNAME"
+git config user.email "$GIT_EMAIL"
 
-        env:
-          SOURCE_URL: ${{ secrets.SOURCE_URL }}
-          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
-          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+# Menambahkan file ke staging area
+git add domains_isp_part1 domains_isp_part2 domains_isp_part3 update_blocklist.sh
+
+# Commit dan push perubahan ke GitHub
+git commit -m "Updated blocklist and split into parts on $now"
+git pull --rebase origin main
+git push -u origin main
+
+# Selesai
+echo "Script completed successfully."
