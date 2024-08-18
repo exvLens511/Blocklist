@@ -21,13 +21,3 @@ jobs:
           SOURCE_URL: ${{ secrets.SOURCE_URL }}
           GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
-
-      - name: Split domain list into parts
-        run: |
-          split -l 100000 domains_isp domain_part_
-          mv domain_part_aa domains_isp_part1
-          mv domain_part_ab domains_isp_part2
-          mv domain_part_ac domains_isp_part3
-          git add domains_isp_part1 domains_isp_part2 domains_isp_part3
-          git commit -m "Split domains list into smaller parts"
-          git push origin main
