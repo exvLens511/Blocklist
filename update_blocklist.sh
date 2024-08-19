@@ -6,6 +6,9 @@ SOURCE_URL="${SOURCE_URL}"
 GIT_USERNAME="${GIT_USERNAME}"
 GIT_EMAIL="${GIT_EMAIL}"
 
+# Instal wrangler jika belum terinstal
+npm install -g wrangler
+
 # Hapus file domains_isp lama jika ada
 if [ -f "$TARGET_DIR/domains_isp" ]; then
     rm "$TARGET_DIR/domains_isp"
@@ -30,10 +33,10 @@ mv "${TARGET_DIR}/domains_isp_partaa" "${TARGET_DIR}/domains_isp_part1"
 mv "${TARGET_DIR}/domains_isp_partab" "${TARGET_DIR}/domains_isp_part2"
 mv "${TARGET_DIR}/domains_isp_partac" "${TARGET_DIR}/domains_isp_part3"
 
-# Simpan setiap bagian ke Workers KV
-wrangler kv:key put --binding=KV_NAMESPACE "domains_isp_part1" --path="${TARGET_DIR}/domains_isp_part1"
-wrangler kv:key put --binding=KV_NAMESPACE "domains_isp_part2" --path="${TARGET_DIR}/domains_isp_part2"
-wrangler kv:key put --binding=KV_NAMESPACE "domains_isp_part3" --path="${TARGET_DIR}/domains_isp_part3"
+# Upload data ke KV
+wrangler kv:key put --namespace-id "${KV_NAMESPACE_ID}" "domains_part1" "$(cat ${TARGET_DIR}/domains_isp_part1)"
+wrangler kv:key put --namespace-id "${KV_NAMESPACE_ID}" "domains_part2" "$(cat ${TARGET_DIR}/domains_isp_part2)"
+wrangler kv:key put --namespace-id "${KV_NAMESPACE_ID}" "domains_part3" "$(cat ${TARGET_DIR}/domains_isp_part3)"
 
 # Git konfigurasi
 git config user.name "$GIT_USERNAME"
