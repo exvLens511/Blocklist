@@ -30,6 +30,11 @@ mv "${TARGET_DIR}/domains_isp_partaa" "${TARGET_DIR}/domains_isp_part1"
 mv "${TARGET_DIR}/domains_isp_partab" "${TARGET_DIR}/domains_isp_part2"
 mv "${TARGET_DIR}/domains_isp_partac" "${TARGET_DIR}/domains_isp_part3"
 
+# Simpan setiap bagian ke Workers KV
+wrangler kv:key put --binding=KV_NAMESPACE "domains_isp_part1" --path="${TARGET_DIR}/domains_isp_part1"
+wrangler kv:key put --binding=KV_NAMESPACE "domains_isp_part2" --path="${TARGET_DIR}/domains_isp_part2"
+wrangler kv:key put --binding=KV_NAMESPACE "domains_isp_part3" --path="${TARGET_DIR}/domains_isp_part3"
+
 # Git konfigurasi
 git config user.name "$GIT_USERNAME"
 git config user.email "$GIT_EMAIL"
