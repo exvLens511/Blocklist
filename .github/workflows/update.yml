@@ -21,3 +21,4 @@ jobs:
           SOURCE_URL: ${{ secrets.SOURCE_URL }}
           GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+          KV_NAMESPACE_ID: ${{ secrets.KV_NAMESPACE_ID }}
