@@ -12,9 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Wrangler
-        run: npm install -g wrangler
-
       - name: Run update script
         run: |
           chmod +x update_blocklist.sh
