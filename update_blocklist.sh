@@ -6,9 +6,6 @@ SOURCE_URL="${SOURCE_URL}"
 GIT_USERNAME="${GIT_USERNAME}"
 GIT_EMAIL="${GIT_EMAIL}"
 
-# Instal wrangler jika belum terinstal
-npm install -g wrangler
-
 # Hapus file domains_isp lama jika ada
 if [ -f "$TARGET_DIR/domains_isp" ]; then
     rm "$TARGET_DIR/domains_isp"
